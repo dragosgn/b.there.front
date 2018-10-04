@@ -64,15 +64,17 @@ const Header = styled.div`
 	align-content: center;
 `
 
-const Italic = styled.div`
+const Title = styled.p`
 	font-style: italic;
+	font-size: 18px;
+	font-weight: bold;
 `
 
 const App = ({ route, goTo }) => (
 	<Root>
 		<Header>
 			<Icon className="fas fa-bars" />
-			<strong><Italic>B.there</Italic></strong>
+			<Title>B.there</Title>
 			<Icon className="fas fa-plus" />
 		</Header>
 		{route === null && <Column>
