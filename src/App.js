@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { compose } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
+import Map from "./Map"
+
 
 const Root = styled.div`
 	display: flex;
@@ -42,15 +44,41 @@ const Button = styled.div`
 					 :hover {background: #85b237;}
 `
 
-const App = () => (
+const App = ({ route, goTo }) => (
 	<Root>
 		<span role="img" aria-label="smile" style={{ fontSize: '5rem', paddingTop: "1rem" }}>
 			🙂
 		</span>
 		<ButtonBox>
-			<Button>Start</Button>
+			<Button onClick={() => goTo("options")}> Start</Button>
 		</ButtonBox>
+		{route === "map" && Map}
 	</Root>
 );
 
-export default compose()(App);
+const routes = [
+	"map",
+	"options"
+]
+
+export default compose(
+	withStateHandlers(
+		({ initialRoute = "map" }) => ({
+			route: initialRoute,
+			prevRoute: null,
+			nextRoute: null
+		}),
+		{
+			goBack: ({ prevRoute }) => value => ({
+				route: prevRoute
+			}),
+			goTo: ({ route }) => (value) => ({
+				route: value,
+				prevRoute: route
+			}),
+			goNext: () => () => ({
+				route: null
+			}),
+		}
+	)
+)(App);
