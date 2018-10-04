@@ -22,7 +22,7 @@ export default compose(
     withProps({
         googleMapURL,
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
+        containerElement: <div style={{ height: `350px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,
@@ -32,8 +32,8 @@ export default compose(
             const DirectionsService = new google.maps.DirectionsService();
 
             DirectionsService.route({
-                origin: new google.maps.LatLng(41.8507300, -87.6512600),
-                destination: new google.maps.LatLng(41.8525800, -87.6514100),
+                origin: new google.maps.LatLng(50.3971, 7.6220),
+                destination: new google.maps.LatLng(52.5200, 13.4050),
                 travelMode: google.maps.TravelMode.DRIVING,
             }, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
