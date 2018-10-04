@@ -6,6 +6,8 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } fr
 const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
 const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`
 
+const google = window.google;
+
 const Map = props =>
     <GoogleMap
         defaultZoom={8}
