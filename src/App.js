@@ -14,7 +14,7 @@ const Column = styled.div`
 
 
 const Root = styled.div`
-	padding: 0.5rem;
+	padding: 1rem;
 `
 
 const Icon = styled.i`
@@ -23,7 +23,7 @@ const Icon = styled.i`
 `
 
 const ButtonBox = styled.div`
-	padding-top: 2rem;
+	padding-top: 0rem;
 `;
 
 
@@ -57,28 +57,29 @@ const Button = styled.div`
 
 const Header = styled.div`
 	display: flex;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0rem;
 	flex-grow: 1;
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
 `
 
-const Title = styled.p`
+const Title = styled.div`
 	font-style: italic;
 	font-size: 18px;
 	font-weight: bold;
 `
 
+
 const App = ({ route, goTo }) => (
 	<Root>
 		<Header>
-			<Icon className="fas fa-bars" color={route !== null ? "grey" : "transparent"} />
+			<Icon className="fas fa-bars" size="1.5rem" />
 			<Title>B.there</Title>
-			<Icon className="fas fa-plus" color={route !== null ? "grey" : "transparent"} />
+			<Icon className="fas fa-plus" size="1.5rem" />
 		</Header>
 		{route === null && <Column>
-			<span role="img" aria-label="smile" style={{ fontSize: '5rem', paddingTop: "1rem" }}>
+			<span role="img" aria-label="smile" style={{ fontSize: '6rem', paddingTop: "4rem" }}>
 				🙂
 		</span>
 			<ButtonBox>
