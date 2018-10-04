@@ -75,7 +75,7 @@ const App = ({ route, goTo }) => (
 	<Root>
 		<Header>
 			<Icon className="fas fa-bars" size="1.5rem" />
-			<Title>B.there</Title>
+			<Title>b.there</Title>
 			<Icon className="fas fa-plus" size="1.5rem" />
 		</Header>
 		{route === null && <Column>
