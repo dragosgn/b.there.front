@@ -4,13 +4,17 @@ import { compose, withStateHandlers } from 'recompose';
 import Map from "./Map"
 
 
-const Root = styled.div`
+const Column = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-content: center;
 	align-items: center;
-	padding: 1rem;
+	
 `;
+
+
+const Root = styled.div`
+`
 
 const ButtonBox = styled.div`
 	padding-top: 2rem;
@@ -44,15 +48,26 @@ const Button = styled.div`
 					 :hover {background: #85b237;}
 `
 
+
+const Header = styled.div`
+	display: flex;
+	padding: 0.25rem;
+`
+
 const App = ({ route, goTo }) => (
 	<Root>
-		<span role="img" aria-label="smile" style={{ fontSize: '5rem', paddingTop: "1rem" }}>
-			🙂
+		<Header>
+			<p>B.there</p>
+		</Header>
+		{route === null && <Column>
+			<span role="img" aria-label="smile" style={{ fontSize: '5rem', paddingTop: "1rem" }}>
+				🙂
 		</span>
-		<ButtonBox>
-			<Button onClick={() => goTo("options")}> Start</Button>
-		</ButtonBox>
-		{route === "map" && Map}
+			<ButtonBox>
+				<Button onClick={() => goTo("map")}> Start</Button>
+			</ButtonBox>
+		</Column>}
+		{route === "map" && <Map isMarkerShown />}
 	</Root>
 );
 
@@ -63,7 +78,7 @@ const routes = [
 
 export default compose(
 	withStateHandlers(
-		({ initialRoute = "map" }) => ({
+		({ initialRoute = null }) => ({
 			route: initialRoute,
 			prevRoute: null,
 			nextRoute: null

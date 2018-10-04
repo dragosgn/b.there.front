@@ -1,34 +1,47 @@
-import React, { Component } from "react"
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+
+import React from "react"
+import { compose, withProps, lifecycle } from "recompose"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
+
+const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
+const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`
+
+const Map = props =>
+    <GoogleMap
+        defaultZoom={8}
+        defaultCenter={{ lat: 50.3971, lng: 7.6220 }}
+    >
+        {props.directions && <DirectionsRenderer directions={props.directions} />}
+        {props.isMarkerShown && <Marker position={{ lat: 50.3971, lng: 7.6220 }} />}
+    </GoogleMap>
 
 
+export default compose(
+    withProps({
+        googleMapURL,
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `400px` }} />,
+        mapElement: <div style={{ height: `100%` }} />,
+    }),
+    withScriptjs,
+    withGoogleMap,
+    lifecycle({
+        componentDidMount() {
+            const DirectionsService = new google.maps.DirectionsService();
 
-const LoadingContainer = (props) => (
-    <div>Loading...</div>
-)
-
-export class MapContainer extends Component {
-    render() {
-        return (
-            <Map google={this.props.google} zoom={14}>
-
-                <Marker onClick={this.onMarkerClick}
-                    name={'Current location'} />
-
-                <InfoWindow onClose={this.onInfoWindowClose}>
-                    <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
-                </InfoWindow>
-            </Map>
-        );
-    }
-}
-
-const GOOGLE_API_KEY = ""
-
-
-export default GoogleApiWrapper({
-    apiKey: (GOOGLE_API_KEY),
-    LoadingContainer: LoadingContainer
-})(MapContainer)
+            DirectionsService.route({
+                origin: new google.maps.LatLng(41.8507300, -87.6512600),
+                destination: new google.maps.LatLng(41.8525800, -87.6514100),
+                travelMode: google.maps.TravelMode.DRIVING,
+            }, (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    this.setState({
+                        directions: result,
+                    });
+                } else {
+                    console.error(`error fetching directions ${result}`);
+                }
+            });
+        }
+    }),
+)(Map)
