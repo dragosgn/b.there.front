@@ -73,9 +73,9 @@ const Title = styled.p`
 const App = ({ route, goTo }) => (
 	<Root>
 		<Header>
-			<Icon className="fas fa-bars" />
+			{route !== null && <Icon className="fas fa-bars" />}
 			<Title>B.there</Title>
-			<Icon className="fas fa-plus" />
+			{route !== null && <Icon className="fas fa-plus" />}
 		</Header>
 		{route === null && <Column>
 			<span role="img" aria-label="smile" style={{ fontSize: '5rem', paddingTop: "1rem" }}>
