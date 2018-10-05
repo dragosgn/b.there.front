@@ -143,7 +143,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 
 export default compose(
 	withState('response', 'setresponse', false),
-	withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
+	withState('endpoint', 'setendpoint', "https://morning-savannah-50648.herokuapp.com/"),
 	lifecycle({
 		componentDidMount() {
 			console.log("props", this.props)
