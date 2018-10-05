@@ -26,6 +26,11 @@ const Icon = styled.i`
 	color: ${props => props.color || "grey"};
 `
 
+const FooterIcon = styled.i`
+	font-size: ${props => props.size || "1rem"};
+	color: ${props => props.color || "grey"};
+`
+
 const ButtonBox = styled.div`
 	padding-top: 0rem;
 `;
@@ -109,10 +114,10 @@ const App = ({ route, goTo, response }) => (
 		</p> */}
 		</Box>
 		{route !== null && <Footer>
-			<Icon color="grey" className="fas fa-home" size="1.5rem" />
-			<Icon color="grey" className="fas fa-wallet" size="1.5rem" />
-			<Icon color="grey" className="fas fa-user" size="1.5rem" />
-			<Icon color="grey" className="fas fa-ticket-alt" size="1.5rem" />
+			<FooterIcon color="grey" className="fas fa-home" size="1.5rem" />
+			<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" />
+			<FooterIcon color="grey" className="fas fa-user" size="1.5rem" />
+			<FooterIcon color="grey" className="fas fa-sliders-h" size="1.5rem" />
 		</Footer>}
 	</Root>
 );
