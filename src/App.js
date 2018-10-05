@@ -124,7 +124,7 @@ const Name = styled.img`
 const FirstScreen = styled.div`
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	height: 100%;
 	background-color: #3da3db;
 `
 
@@ -146,7 +146,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 				<Particles style={{
 					marginTop: "5rem",
 					marginBottom: "5rem"
-				}} height={230} params={
+				}} height={200} params={
 					particlesConfig
 				} />
 				<Voice src={voice} height={40} alt="voice" />
