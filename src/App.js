@@ -11,12 +11,14 @@ const Column = styled.div`
 	flex-direction: column;
 	align-content: center;
 	align-items: center;
-
 `;
+
+const Box = styled.div`
+	padding: 0.5rem;
+`
 
 
 const Root = styled.div`
-	padding: 1rem;
 `
 
 const Icon = styled.i`
@@ -59,11 +61,12 @@ const Button = styled.div`
 
 const Header = styled.div`
 	display: flex;
-	padding: 0.5rem 0rem;
 	flex-grow: 1;
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
+	padding: 0.5rem;
+	margin-top: 0.5rem;
 `
 
 const Title = styled.div`
@@ -89,9 +92,11 @@ const App = ({ route, goTo, response }) => (
 			</ButtonBox>
 		</Column>}
 		{route === "map" && <Map isMarkerShown />}
-		<p>
-			The temperature in Florence is: {response} °F
-		</p>
+		<Box>
+			{/* <p>
+				The temperature in Florence is: {response} °F
+		</p> */}
+		</Box>
 	</Root>
 );
 

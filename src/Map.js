@@ -4,6 +4,7 @@ import { compose, withProps, lifecycle, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
 import styled from "styled-components"
 import Details from "./Details"
+import { Box } from "./styled"
 
 const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
 const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`
@@ -14,34 +15,67 @@ const google = window.google;
 
 const AddressCard = styled.div`
     display: flex;
-    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-    box-shadow: 0 0 0 1px #d4d4d5, 0 2px 0 0 #fbbd08, 0 1px 3px 0 #d4d4d5;
-    border-radius: 5px;
-    padding: 0.5rem;
-    margin: 1rem 0rem;
+    border-radius: 1px;
     align-items: center;
     align-content: center;
-    * {
-        font-size: 14px;
+    :not(:first-child) {
+        border-top: 1px solid grey;
     }
 `
-
-
 
 const TitleBox = styled.div`
     flex-grow: 3;
     padding-left: 0.5rem;
 `
 
-const Title = styled.div``
+const CircleIcon = styled.i`
+	font-size: ${props => props.size || "1rem"};
+    color: #3498db;
+    position: relative;
+    left: -9px;
+    top: 28px;
+`
+
+const TimeLabel = styled.div`
+    margin-bottom: 8px;
+`
+
+const Title = styled.div`
+    font-weight: bold;
+    margin-bottom: 10px;
+`
 const Adress = styled.div``
-const Time = styled.div``
+const Time = styled.div`
+    padding-right: 0.5rem;
+`
 const Duration = styled.div`
-    color: white;
-    background-color: #8bbc37;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 2px;
+    /* color: white; */
+    /* background-color: #8bbc37; */
+    /* border: 1px solid transparent; */
+    /* border-radius: 2px;
+    padding: 2px; */
+    font-size: 1.3rem;
+`
+
+const LineWithPoint = styled.div`
+    height: 70px;
+    margin-left: 2rem;
+    width: 12px;
+    border-left: 1px solid grey;
+`
+
+const AdressBox = styled.div`
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: -webkit-fill-available;
+`
+
+const CardsContainer = styled.div`
+    display: flex;
+    padding: 5px;
+    flex-direction: column;
 `
 
 const Map = props =>
@@ -49,60 +83,86 @@ const Map = props =>
         <GoogleMap
             defaultZoom={8}
             defaultCenter={{ lat: 50.3971, lng: 7.6220 }}
-            defaultOptions={{ styles: demoFancyMapStyles }}
+            defaultOptions={{
+                styles: demoFancyMapStyles,
+                // these following 7 options turn certain controls off see link below
+                streetViewControl: false,
+                scaleControl: false,
+                mapTypeControl: false,
+                panControl: false,
+                zoomControl: false,
+                rotateControl: false,
+                fullscreenControl: false
+            }}
         >
             {props.directions && <DirectionsRenderer directions={props.directions} />}
             {props.isMarkerShown && <Marker position={{ lat: 50.3971, lng: 7.6220 }} />}
         </GoogleMap>
-        {props.detailsOn && <Details {...props} />}
-        {!props.detailsOn && <>
-            <AddressCard onClick={() => props.switchDetails()}>
-                <span role="img" aria-label="bday" style={{ fontSize: '2rem' }}>🎉</span>
-                <TitleBox>
-                    <Title>Omas Geburtstag</Title>
-                    <Adress>Rosenthaler Str.23, Berlin</Adress>
-                </TitleBox>
-                <Time>
-                    <div>
-                        Ride in:
-                </div>
-                    <Duration>
-                        9h 20min
+        <Box>
+            {props.detailsOn && <Details {...props} />}
+        </Box>
+        <CardsContainer>
+            {!props.detailsOn && <>
+                <AddressCard onClick={() => props.switchDetails()}>
+                    <LineWithPoint>
+                        <CircleIcon className="fas fa-circle" />
+                    </LineWithPoint>
+                    <AdressBox>
+                        <TitleBox>
+                            <Title>Omas Geburtstag</Title>
+                            <Adress>MyTaxi, Mercedes C Class</Adress>
+                        </TitleBox>
+                        <Time>
+                            <TimeLabel>
+                                Ride in
+                            </TimeLabel>
+                            <Duration>
+                                9h 20min
                 </Duration>
-                </Time>
-            </AddressCard>
-            <AddressCard onClick={() => props.switchDetails()}>
-                <span role="img" aria-label="bday" style={{ fontSize: '2rem' }}>💡</span>
-                <TitleBox>
-                    <Title>Idea Lab</Title>
-                    <Adress>Burgpl. 2, Vallendar</Adress>
-                </TitleBox>
-                <Time>
-                    <div>
-                        Ride in:
-                </div>
-                    <Duration>
-                        4h 13min
+                        </Time>
+                    </AdressBox>
+                </AddressCard>
+                <AddressCard onClick={() => props.switchDetails()}>
+                    <LineWithPoint>
+                        <CircleIcon className="fas fa-circle" />
+                    </LineWithPoint>
+                    <AdressBox>
+                        <TitleBox>
+                            <Title>Omas Geburtstag</Title>
+                            <Adress>Rosenthaler Str.23, Berlin</Adress>
+                        </TitleBox>
+                        <Time>
+                            <div>
+                                Ride in:
+                    </div>
+                            <Duration>
+                                9h 20min
                 </Duration>
-                </Time>
-            </AddressCard>
-            <AddressCard onClick={() => props.switchDetails()}>
-                <span role="img" aria-label="bday" style={{ fontSize: '2rem' }}>💵</span>
-                <TitleBox>
-                    <Title>B.there IPO</Title>
-                    <Adress>Mergenthalerallee 61, Eschborn</Adress>
-                </TitleBox>
-                <Time>
-                    <div>
-                        Ride in:
-                </div>
-                    <Duration>
-                        1h 37min
+                        </Time>
+                    </AdressBox>
+                </AddressCard>
+                <AddressCard onClick={() => props.switchDetails()}>
+                    <LineWithPoint>
+                        <CircleIcon className="fas fa-circle" />
+                    </LineWithPoint>
+                    <AdressBox>
+                        <TitleBox>
+                            <Title>Omas Geburtstag</Title>
+                            <Adress>Rosenthaler Str.23, Berlin</Adress>
+                        </TitleBox>
+                        <Time>
+                            <div>
+                                Ride in:
+                    </div>
+                            <Duration>
+                                9h 20min
                 </Duration>
-                </Time>
-            </AddressCard>
-        </>}
+                        </Time>
+                    </AdressBox>
+                </AddressCard>
+            </>}
 
+        </CardsContainer>
     </div>
 
 
