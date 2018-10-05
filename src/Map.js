@@ -81,6 +81,7 @@ const AdressBox = styled.div`
 
 const CardsContainer = styled.div`
     display: flex;
+    flex-direction: column;
     padding: 1.5rem 1rem;
 `
 
@@ -103,6 +104,11 @@ const Content = styled.div`
 const Image = styled.img`
     margin-left: auto;
     margin-right: auto;
+`
+
+const Booked = styled.div`
+    color: green;
+    font-size: 1.5rem;
 `
 
 const Map = props =>
@@ -152,11 +158,11 @@ const Map = props =>
             </GoogleMap>
 
             <CardsContainer>
-                <Timeline>
+                {props.factor === 0 && <Timeline>
                     <Timeline.Item onClick={() => props.switchDetails()} >
                         <TitleBox>
-                            <Title>Omas Geburtstag, Berghain, Berlin</Title>
-                            <Adress>MyTaxi, Mercedes C Class</Adress>
+                            <Title>Berlin -> Cologne</Title>
+                            <Adress>Train, Deutsche Bahn</Adress>
                         </TitleBox>
                         <Time>
                             <Duration>
@@ -164,27 +170,33 @@ const Map = props =>
                             </Duration>
                         </Time>
                     </Timeline.Item>
+
                     <Timeline.Item onClick={() => props.switchDetails()}>
                         <TitleBox>
-                            <Title>Idea Lab, Burgpl. 2, Vallendar</Title>
-                            <Adress>Uber, BMW i3</Adress>
-                        </TitleBox>
-                        <Time>
-                            <Duration>
-                                5h 8min, 55€
-                            </Duration>
-                        </Time>
-                    </Timeline.Item>
-                    <Timeline.Item onClick={() => props.switchDetails()}>
-                        <TitleBox>
-                            <Title>b.there IPO, Deutsche Börse, Eschborn</Title>
-                            <Adress>e.Go, e.Go 15C</Adress>
+                            <Title>Cologne -> Vallendar</Title>
+                            <Adress>e.Go, e.Go Mover Vip</Adress>
                         </TitleBox>
                         <Time>
                             <Duration>
                                 1h 17min, 17€
                             </Duration>
                         </Time>
+                    </Timeline.Item>
+                </Timeline>}
+                <Timeline>
+                    <Timeline.Item onClick={() => props.switchDetails()}>
+                        <TitleBox>
+                            <Title>Berlin -> Vallendar</Title>
+                            <Adress>e.Go, e.Go Mover Vip</Adress>
+                        </TitleBox>
+                        <Time>
+                            <Duration>
+                                1h 17min, 17€
+                            </Duration>
+                        </Time>
+                        {props.factor > 0 && <Booked>
+                            Booked!
+                        </Booked>}
                     </Timeline.Item>
                 </Timeline>
             </CardsContainer>
