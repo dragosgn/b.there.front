@@ -65,23 +65,24 @@ const Header = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
-	padding: 0.5rem;
-	margin-top: 0.5rem;
+	padding: 1rem; 
 `
 
 const Title = styled.div`
 	font-style: italic;
-	font-size: 18px;
+	font-size: 26px;
 	font-weight: bold;
+	color: #3498db;
+	font-family: 'Monoton', cursive;
 `
 
 
 const App = ({ route, goTo, response }) => (
 	<Root>
 		<Header>
-			<Icon className="fas fa-bars" size="1.5rem" />
+			<Icon className="fas fa-bars" size="1.5rem" color="grey" />
 			<Title>b.there</Title>
-			<Icon className="fas fa-plus" size="1.5rem" />
+			<Icon className="fas fa-plus" size="1.5rem" color="grey" />
 		</Header>
 		{route === null && <Column>
 			<span role="img" aria-label="smile" style={{ fontSize: '6rem', paddingTop: "4rem" }}>
