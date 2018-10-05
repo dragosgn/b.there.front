@@ -210,7 +210,7 @@ export default compose(
 			console.log("props", this.props)
 			const { endpoint } = this.props;
 			const socket = socketIOClient(endpoint);
-			socket.on("alexa_add_transport", () => (console.log('test')));
+			socket.on("alexa_add_transport", () => (this.props.sumFactor()));
 		}
 	})
 
