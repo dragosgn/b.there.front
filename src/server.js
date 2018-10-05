@@ -4,7 +4,7 @@ const socketIo = require("socket.io");
 const axios = require("axios");
 // const fs = require('fs');
 // const https = require('https');
-const index = require("./routes/index");
+// const index = require("./routes/index");
 
 
 // const privateKey  = fs.readFileSync('certs/server.key', 'utf8');
@@ -21,7 +21,7 @@ const index = require("./routes/index");
 
 
 const app = express();
-app.use(index);
+// app.use(index);
 
 
 app.post('/hello_world', (req, res) => {
@@ -45,10 +45,11 @@ const ioHttp = socketIo(httpServer);
 
 
 ioHttp.on("connection", socket => {
-  console.log("New client connected"), setInterval(
-    () => getApiAndEmit(socket),
-    5000
-  );
+  // setInterval(
+  //   (socket) => getApiAndEmit(socket),
+  //   2000
+  // );
+  getApiAndEmit(socket)
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
@@ -61,10 +62,12 @@ ioHttp.on("connection", socket => {
 //   });
 
 const getApiAndEmit = async socket => {
+  console.log("socket", socket)
   try {
     const res = await axios.get(
       "https://api.darksky.net/forecast/dceef8346c9ef299f4e273d7fb96dd82/43.7695,11.2558"
     );
+    console.log("res", res)
     socket.emit("FromAPI", res.data.currently.temperature);
   } catch (error) {
     console.error(`Error: ${error.code}`);

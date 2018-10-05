@@ -101,20 +101,21 @@ const routes = [
 ]
 
 export default compose(
+	withState('response', 'setresponse', false),
+	withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
+	lifecycle({
+		componentDidMount() {
+			console.log("props", this.props)
+			const { endpoint } = this.props;
+			const socket = socketIOClient(endpoint);
+			socket.on("FromAPI", data => this.setState({ response: data }));
+		}
+	}),
 	withStateHandlers(
 		({ initialRoute = null }) => ({
 			route: initialRoute,
 			prevRoute: null,
 			nextRoute: null,
-		}),
-		withState('response', 'setresponse', false),
-		withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
-		lifecycle({
-			componentDidMount() {
-				const { endpoint } = this.state;
-				const socket = socketIOClient(endpoint);
-				socket.on("FromAPI", data => this.setState({ response: data }));
-			}
 		}),
 		{
 			goBack: ({ prevRoute }) => value => ({
