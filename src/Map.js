@@ -33,7 +33,7 @@ const CircleIcon = styled.i`
     color: #3498db;
     position: relative;
     left: -9px;
-    top: 28px;
+    top: 26px;
 `
 
 const TimeLabel = styled.div`
