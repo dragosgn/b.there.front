@@ -10,6 +10,8 @@ import logo from "./logo.png"
 import brand1 from "./btherelogo-04.png"
 import name from "./name.png"
 import voice from "./voice.svg"
+import wave from "./wave.svg"
+
 
 
 const Column = styled.div`
@@ -137,6 +139,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 			<FirstScreen onClick={() => goTo("map")}>
 				<Logo height={150} src={logo} alt="logo" />
 				<Voice src={voice} height={40} alt="voice" />
+				<img src={wave} height={40} alt="voice" />
 			</FirstScreen>
 		}
 		{route === "map" && <Map isMarkerShown />}
