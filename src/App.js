@@ -129,7 +129,7 @@ const FirstScreen = styled.div`
 `
 
 const Voice = styled.img`
-	margin-top: 14rem;
+	margin-top: 10rem;
 	margin-bottom: 0.5rem;
 `
 
