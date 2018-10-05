@@ -76,6 +76,16 @@ const Title = styled.div`
 	font-family: 'Monoton', cursive;
 `
 
+const Footer = styled.div`
+	padding: 1rem;
+	display: flex;
+	border-top: 0.5px solid grey;
+    position: fixed;
+    bottom: 0px;
+    width: -webkit-fill-available;
+	justify-content: space-between;
+`
+
 
 const App = ({ route, goTo, response }) => (
 	<Root>
@@ -98,6 +108,12 @@ const App = ({ route, goTo, response }) => (
 				The temperature in Florence is: {response} °F
 		</p> */}
 		</Box>
+		{route !== null && <Footer>
+			<Icon color="grey" className="fas fa-home" size="1.5rem" />
+			<Icon color="grey" className="fas fa-wallet" size="1.5rem" />
+			<Icon color="grey" className="fas fa-user" size="1.5rem" />
+			<Icon color="grey" className="fas fa-ticket-alt" size="1.5rem" />
+		</Footer>}
 	</Root>
 );
 
