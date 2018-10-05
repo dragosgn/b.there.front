@@ -10,6 +10,7 @@
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",
     "react-ionicons": "^2.1.6",
+    "react-particles-js": "^2.3.0",
     "react-responsive-modal": "^3.4.0",
     "react-scripts": "2.0.4",
     "recompose": "^0.30.0",
