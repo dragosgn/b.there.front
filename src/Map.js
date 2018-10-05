@@ -166,7 +166,7 @@ const Map = props =>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                9h {20 + 20 * props.factor / 10}min, {props.factor * 160 + 160} €
+                                4h 25min, 122€
                             </Duration>
                         </Time>
                     </Timeline.Item>
@@ -174,11 +174,11 @@ const Map = props =>
                     <Timeline.Item onClick={() => props.switchDetails()}>
                         <TitleBox>
                             <Title>Cologne -> Vallendar</Title>
-                            <Adress>e.Go, e.Go Mover Vip</Adress>
+                            <Adress>MyTaxi, Mercedes E Class</Adress>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                1h 17min, 17€
+                                1h 11min, 136€
                             </Duration>
                         </Time>
                     </Timeline.Item>
@@ -187,11 +187,11 @@ const Map = props =>
                     <Timeline.Item onClick={() => props.switchDetails()}>
                         <TitleBox>
                             <Title>Berlin -> Vallendar</Title>
-                            <Adress>e.Go, e.Go Mover Vip</Adress>
+                            <Adress>e.Go, e.Go Mover V.I.P.</Adress>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                1h 17min, 17€
+                                9h 31min, 47,98€
                             </Duration>
                         </Time>
                         {props.factor > 0 && <Booked>
