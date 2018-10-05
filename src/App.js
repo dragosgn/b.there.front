@@ -83,9 +83,9 @@ const Title = styled.div`
 	font-size: 26px;
 	font-weight: bold;
 	color: #3498db;
-	font-family: 'Monoton', cursive;
 	display: flex;
 	justify-content: center;
+	font-family: 'Monoton', cursive;
 `
 
 const Footer = styled.div`
@@ -149,7 +149,7 @@ export default compose(
 			console.log("props", this.props)
 			const { endpoint } = this.props;
 			const socket = socketIOClient(endpoint);
-			socket.on("alexa_add_transport", (data) => (console.log(`alexa added trasnposrt`)));
+			socket.on("FromAPI", data => this.setState({ response: data }));
 		}
 	}),
 	withStateHandlers(

@@ -4,9 +4,12 @@ import { compose, withProps, lifecycle, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
 import styled from "styled-components"
 import Details from "./Details"
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import { Box } from "./styled"
 import ZoomedMap from "./ZoomedMap"
 import Modal from "react-responsive-modal";
+
+import { Timeline } from 'antd';
 
 
 const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
@@ -28,7 +31,6 @@ const AddressCard = styled.div`
 
 const TitleBox = styled.div`
     flex-grow: 3;
-    padding-left: 0.5rem;
 `
 
 const CircleIcon = styled.i`
@@ -40,16 +42,13 @@ const CircleIcon = styled.i`
 `
 
 const TimeLabel = styled.div`
-    margin-bottom: 8px;
 `
 
 const Title = styled.div`
     font-weight: bold;
-    margin-bottom: 10px;
 `
 const Adress = styled.div``
 const Time = styled.div`
-    padding-right: 0.5rem;
 `
 const Duration = styled.div`
     /* color: white; */
@@ -77,8 +76,7 @@ const AdressBox = styled.div`
 
 const CardsContainer = styled.div`
     display: flex;
-    padding: 5px;
-    flex-direction: column;
+    padding: 1.5rem 1rem;
 `
 
 const ModalRoot = styled.div`
@@ -128,64 +126,43 @@ const Map = props =>
                 {props.directions && <DirectionsRenderer directions={props.directions} />}
                 {props.isMarkerShown && <Marker position={{ lat: 50.3971, lng: 7.6220 }} />}
             </GoogleMap>
+
             <CardsContainer>
-                <AddressCard onClick={() => props.switchDetails()}>
-                    <LineWithPoint>
-                        <CircleIcon className="fas fa-circle" />
-                    </LineWithPoint>
-                    <AdressBox>
+                <Timeline>
+                    <Timeline.Item onClick={() => props.switchDetails()} >
                         <TitleBox>
-                            <Title>Omas Geburtstag</Title>
+                            <Title>Omas Geburtstag, Berghain, Berlin</Title>
                             <Adress>MyTaxi, Mercedes C Class</Adress>
                         </TitleBox>
                         <Time>
-                            <TimeLabel>
-                                Ride in
-                            </TimeLabel>
                             <Duration>
                                 9h 20min
-                </Duration>
+                            </Duration>
                         </Time>
-                    </AdressBox>
-                </AddressCard>
-                <AddressCard onClick={() => props.switchDetails()}>
-                    <LineWithPoint>
-                        <CircleIcon className="fas fa-circle" />
-                    </LineWithPoint>
-                    <AdressBox>
+                    </Timeline.Item>
+                    <Timeline.Item onClick={() => props.switchDetails()}>
                         <TitleBox>
-                            <Title>Omas Geburtstag</Title>
-                            <Adress>Rosenthaler Str.23, Berlin</Adress>
+                            <Title>Idea Lab, Burgpl. 2, Vallendar</Title>
+                            <Adress>Uber, BMW i3</Adress>
                         </TitleBox>
                         <Time>
-                            <div>
-                                Ride in:
-                    </div>
                             <Duration>
-                                9h 20min
-                </Duration>
+                                5h 8min
+                            </Duration>
                         </Time>
-                    </AdressBox>
-                </AddressCard>
-                <AddressCard onClick={() => props.switchDetails()}>
-                    <LineWithPoint>
-                        <CircleIcon className="fas fa-circle" />
-                    </LineWithPoint>
-                    <AdressBox>
+                    </Timeline.Item>
+                    <Timeline.Item onClick={() => props.switchDetails()}>
                         <TitleBox>
-                            <Title>Omas Geburtstag</Title>
-                            <Adress>Rosenthaler Str.23, Berlin</Adress>
+                            <Title>b.there IPO, Deutsche Börse, Eschborn</Title>
+                            <Adress>e.Go, e.Go 15C</Adress>
                         </TitleBox>
                         <Time>
-                            <div>
-                                Ride in:
-                    </div>
                             <Duration>
-                                9h 20min
-                </Duration>
+                                1h 17min
+                            </Duration>
                         </Time>
-                    </AdressBox>
-                </AddressCard>
+                    </Timeline.Item>
+                </Timeline>
             </CardsContainer>
         </div>
     </div>
