@@ -5,8 +5,8 @@ import Map from "./Map"
 import socketIOClient from "socket.io-client";
 import Modal from "react-responsive-modal";
 import ticket from './qr.png';
-
-
+import Ionicon from 'react-ionicons'
+import logo from "./logo.jpg"
 
 const Column = styled.div`
 	display: flex;
@@ -21,6 +21,8 @@ const Box = styled.div`
 
 
 const Root = styled.div`
+	height: 100vh;
+
 `
 
 const Icon = styled.i`
@@ -82,6 +84,8 @@ const Title = styled.div`
 	font-weight: bold;
 	color: #3498db;
 	font-family: 'Monoton', cursive;
+	display: flex;
+	justify-content: center;
 `
 
 const Footer = styled.div`
@@ -94,45 +98,48 @@ const Footer = styled.div`
 	justify-content: space-between;
 `
 
+const Logo = styled.img`
+	margin-top: 5rem;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+`
+
+const FirstScreen = styled.div`
+	display: flex;
+	flex-direction: column;
+`
 
 const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 	<Root>
-		<Header>
+		{route !== null && <Header>
 			<Icon className="fas fa-bars" size="1.5rem" color="grey" />
 			<Title>b.there</Title>
 			<Icon className="fas fa-plus" size="1.5rem" color="grey" />
-		</Header>
-		{route === null && <Column>
-			<span role="img" aria-label="smile" style={{ fontSize: '6rem', paddingTop: "4rem" }}>
-				🙂
-         		</span>
-			<ButtonBox>
-				<Button onClick={() => goTo("map")}> Start</Button>
-			</ButtonBox>
-		</Column>}
+		</Header>}
+		{route === null &&
+			<FirstScreen>
+				<Logo height={150} src={logo} alt="logo" onClick={() => goTo("map")} />
+				<Title>b.there</Title>
+			</FirstScreen>
+		}
 		{route === "map" && <Map isMarkerShown />}
-		<Box>
-			{/* <p>
-				The temperature in Florence is: {response} °F
-		</p> */}
-		</Box>
+
 		<Modal open={modalOpen} onClose={closeModal} center>
 			<p>This is your ticket:</p>
 			<img width={300} src={ticket} alt="ticket" />
 		</Modal>
-		{route !== null && <Footer>
-			<FooterIcon color="grey" className="fas fa-home" size="1.5rem" active={route === "map" && !modalOpen} />
-			<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" onClick={openModal} active={modalOpen} />
-			<FooterIcon color="grey" className="fas fa-user" size="1.5rem" />
-			<FooterIcon color="grey" className="fas fa-sliders-h" size="1.5rem" />
-		</Footer>}
-	</Root>
+		{
+			route !== null && <Footer>
+				<FooterIcon color="grey" className="fas fa-home" size="1.5rem" active={route === "map" && !modalOpen} />
+				<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" onClick={openModal} active={modalOpen} />
+				<FooterIcon color="grey" className="fas fa-user" size="1.5rem" />
+				<FooterIcon color="grey" className="fas fa-sliders-h" size="1.5rem" />
+			</Footer>
+		}
+	</Root >
 );
 
-const routes = [
-	"map",
-	"options"
-]
 
 export default compose(
 	withState('response', 'setresponse', false),
