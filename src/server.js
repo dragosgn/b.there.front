@@ -45,11 +45,10 @@ const ioHttp = socketIo(httpServer);
 
 
 ioHttp.on("connection", socket => {
-  // setInterval(
-  //   (socket) => getApiAndEmit(socket),
-  //   2000
-  // );
-  getApiAndEmit(socket)
+  setInterval(
+    () => getApiAndEmit(socket),
+    2000
+  );
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
