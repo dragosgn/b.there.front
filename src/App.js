@@ -145,7 +145,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 				<Logo height={150} src={logo} alt="logo" />
 				<Particles style={{
 					position: "relative",
-					top: "100px"
+					top: "80px"
 				}} height={230} params={
 					particlesConfig
 				} />
