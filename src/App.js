@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { compose, withStateHandlers } from 'recompose';
+import { compose, withStateHandlers, lifecycle, withState } from 'recompose';
 import Map from "./Map"
+import socketIOClient from "socket.io-client";
+
 
 
 const Column = styled.div`
@@ -9,7 +11,7 @@ const Column = styled.div`
 	flex-direction: column;
 	align-content: center;
 	align-items: center;
-	
+
 `;
 
 
@@ -34,17 +36,17 @@ const Button = styled.div`
 	margin: 20px auto;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	border-radius: 5px; 
+	border-radius: 5px;
 	display: block;
 	text-decoration: none;
 	text-align: center;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 1.2em;
 	:hover {
-	  -webkit-transition: background-color 1s ease-in;  
-	 	   -moz-transition: background-color 1s ease-in;  
-	 	  	 -o-transition: background-color 1s ease-in;  
-	     	    transition: background-color 1s ease-in; 
+	  -webkit-transition: background-color 1s ease-in;
+	 	   -moz-transition: background-color 1s ease-in;
+	 	  	 -o-transition: background-color 1s ease-in;
+	     	    transition: background-color 1s ease-in;
 	}
 	color: #FFF;
 		background: #8bbc37;
@@ -71,7 +73,7 @@ const Title = styled.div`
 `
 
 
-const App = ({ route, goTo }) => (
+const App = ({ route, goTo, response }) => (
 	<Root>
 		<Header>
 			<Icon className="fas fa-bars" size="1.5rem" />
@@ -81,6 +83,10 @@ const App = ({ route, goTo }) => (
 		{route === null && <Column>
 			<span role="img" aria-label="smile" style={{ fontSize: '6rem', paddingTop: "4rem" }}>
 				🙂
+          <p>
+              The temperature in Florence is: {response} °F
+            </p>
+          <p>Loading...</p>
 		</span>
 			<ButtonBox>
 				<Button onClick={() => goTo("map")}> Start</Button>
@@ -100,8 +106,17 @@ export default compose(
 		({ initialRoute = null }) => ({
 			route: initialRoute,
 			prevRoute: null,
-			nextRoute: null
+			nextRoute: null,
 		}),
+	withState('response', 'setresponse', false),
+	withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
+	lifecycle({
+			componentDidMount() {
+				const { endpoint } = this.state;
+		    const socket = socketIOClient(endpoint);
+		    socket.on("FromAPI", data => this.setState({ response: data }));
+			}
+	}),
 		{
 			goBack: ({ prevRoute }) => value => ({
 				route: prevRoute
