@@ -106,6 +106,7 @@ const Footer = styled.div`
     bottom: 0px;
     width: -webkit-fill-available;
 	justify-content: space-between;
+	background-color: white;
 `
 
 const Logo = styled.img`
