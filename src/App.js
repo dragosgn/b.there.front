@@ -6,7 +6,10 @@ import socketIOClient from "socket.io-client";
 import Modal from "react-responsive-modal";
 import ticket from './qr.png';
 import Ionicon from 'react-ionicons'
-import logo from "./logo.jpg"
+import logo from "./logo.png"
+import brand1 from "./btherelogo-04.png"
+import name from "./name.png"
+
 
 const Column = styled.div`
 	display: flex;
@@ -75,7 +78,7 @@ const Header = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
-	padding: 1rem; 
+	padding: 1rem;
 `
 
 const Title = styled.div`
@@ -105,6 +108,13 @@ const Logo = styled.img`
     margin-right: auto;
 `
 
+const Name = styled.img`
+	margin-top: 5rem;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+`
+
 const FirstScreen = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -114,13 +124,13 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 	<Root>
 		{route !== null && <Header>
 			<Icon className="fas fa-bars" size="1.5rem" color="grey" />
-			<Title>b.there</Title>
+			<Name height={150} src={name} alt="name" onClick={() => goTo("map")} />
 			<Icon className="fas fa-plus" size="1.5rem" color="grey" />
 		</Header>}
 		{route === null &&
 			<FirstScreen>
 				<Logo height={150} src={logo} alt="logo" onClick={() => goTo("map")} />
-				<Title>b.there</Title>
+				<Name height={100} src={brand1} alt="name" onClick={() => goTo("map")} />
 			</FirstScreen>
 		}
 		{route === "map" && <Map isMarkerShown />}
