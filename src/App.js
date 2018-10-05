@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { compose, withStateHandlers, lifecycle, withState } from 'recompose';
 import Map from "./Map"
 import socketIOClient from "socket.io-client";
+import Modal from "react-responsive-modal";
+import ticket from './qr.png';
 
 
 
@@ -28,7 +30,8 @@ const Icon = styled.i`
 
 const FooterIcon = styled.i`
 	font-size: ${props => props.size || "1rem"};
-	color: ${props => props.color || "grey"};
+	color: ${props => props.active ? "#3498db" : "grey"};
+	cursor: pointer;
 `
 
 const ButtonBox = styled.div`
@@ -92,7 +95,7 @@ const Footer = styled.div`
 `
 
 
-const App = ({ route, goTo, response }) => (
+const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 	<Root>
 		<Header>
 			<Icon className="fas fa-bars" size="1.5rem" color="grey" />
@@ -113,9 +116,13 @@ const App = ({ route, goTo, response }) => (
 				The temperature in Florence is: {response} °F
 		</p> */}
 		</Box>
+		<Modal open={modalOpen} onClose={closeModal} center>
+			<p>This is your ticket:</p>
+			<img width={300} src={ticket} alt="ticket" />
+		</Modal>
 		{route !== null && <Footer>
-			<FooterIcon color="grey" className="fas fa-home" size="1.5rem" />
-			<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" />
+			<FooterIcon color="grey" className="fas fa-home" size="1.5rem" active={route === "map" && !modalOpen} />
+			<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" onClick={openModal} active={modalOpen} />
 			<FooterIcon color="grey" className="fas fa-user" size="1.5rem" />
 			<FooterIcon color="grey" className="fas fa-sliders-h" size="1.5rem" />
 		</Footer>}
@@ -143,6 +150,7 @@ export default compose(
 			route: initialRoute,
 			prevRoute: null,
 			nextRoute: null,
+			modalOpen: false
 		}),
 		{
 			goBack: ({ prevRoute }) => value => ({
@@ -155,6 +163,12 @@ export default compose(
 			goNext: () => () => ({
 				route: null
 			}),
+			openModal: () => () => ({
+				modalOpen: true
+			}),
+			closeModal: () => () => ({
+				modalOpen: false
+			})
 		}
 	)
 )(App);

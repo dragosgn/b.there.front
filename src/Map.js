@@ -5,6 +5,9 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } fr
 import styled from "styled-components"
 import Details from "./Details"
 import { Box } from "./styled"
+import ZoomedMap from "./ZoomedMap"
+import Modal from "react-responsive-modal";
+
 
 const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
 const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`
@@ -78,31 +81,51 @@ const CardsContainer = styled.div`
     flex-direction: column;
 `
 
+const ModalRoot = styled.div`
+
+`
+
+const TripDetails = styled.div`
+    padding: 0.5rem;
+`
+
 const Map = props =>
     <div>
-        <GoogleMap
-            defaultZoom={8}
-            defaultCenter={{ lat: 50.3971, lng: 7.6220 }}
-            defaultOptions={{
-                styles: demoFancyMapStyles,
-                // these following 7 options turn certain controls off see link below
-                streetViewControl: false,
-                scaleControl: false,
-                mapTypeControl: false,
-                panControl: false,
-                zoomControl: false,
-                rotateControl: false,
-                fullscreenControl: false
-            }}
-        >
-            {props.directions && <DirectionsRenderer directions={props.directions} />}
-            {props.isMarkerShown && <Marker position={{ lat: 50.3971, lng: 7.6220 }} />}
-        </GoogleMap>
-        <Box>
-            {props.detailsOn && <Details {...props} />}
-        </Box>
-        <CardsContainer>
-            {!props.detailsOn && <>
+        <ModalRoot>
+            <Modal open={props.detailsOn} onClose={props.hideDetails} center styles={{
+                modal: {
+                    padding: "0px", width: "100%",
+                    height: "100%"
+                }
+            }}>
+                <ZoomedMap />
+                <TripDetails>
+                    <div><strong>Adress:</strong> Rosenthaler Platz, Berlin</div>
+                    <div><strong>Duration:</strong> 5h 37min</div>
+                    <div><strong>Price:</strong> 160€</div>
+                </TripDetails>
+            </Modal>
+        </ModalRoot>
+        <div>
+            <GoogleMap
+                defaultZoom={8}
+                defaultCenter={{ lat: 50.3971, lng: 7.6220 }}
+                defaultOptions={{
+                    // styles: demoFancyMapStyles,
+                    // these following 7 options turn certain controls off see link below
+                    streetViewControl: false,
+                    scaleControl: false,
+                    mapTypeControl: false,
+                    panControl: false,
+                    zoomControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false
+                }}
+            >
+                {props.directions && <DirectionsRenderer directions={props.directions} />}
+                {props.isMarkerShown && <Marker position={{ lat: 50.3971, lng: 7.6220 }} />}
+            </GoogleMap>
+            <CardsContainer>
                 <AddressCard onClick={() => props.switchDetails()}>
                     <LineWithPoint>
                         <CircleIcon className="fas fa-circle" />
@@ -160,19 +183,36 @@ const Map = props =>
                         </Time>
                     </AdressBox>
                 </AddressCard>
-            </>}
-
-        </CardsContainer>
+            </CardsContainer>
+        </div>
     </div>
 
 
 export default compose(
-    withProps({
+    withStateHandlers(
+        ({ initialState = false }) => ({
+            detailsOn: initialState,
+            mapHeight: `320px`
+        }),
+        {
+            showDetails: () => () => ({
+                detailsOn: true,
+                mapHeight: `450px`
+            }),
+            hideDetails: () => () => ({
+                detailsOn: false
+            }),
+            switchDetails: ({ detailsOn }) => () => ({
+                detailsOn: !detailsOn,
+            }),
+        }
+    ),
+    withProps(props => ({
         googleMapURL,
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `320px` }} />,
+        containerElement: <div style={{ height: props.mapHeight }} />,
         mapElement: <div style={{ height: `100%` }} />,
-    }),
+    })),
     withScriptjs,
     withGoogleMap,
     lifecycle({
@@ -196,21 +236,5 @@ export default compose(
                 }
             });
         }
-    }),
-    withStateHandlers(
-        ({ initialState = false }) => ({
-            detailsOn: initialState,
-        }),
-        {
-            showDetails: () => () => ({
-                detailsOn: true
-            }),
-            hideDetails: () => () => ({
-                detailsOn: false
-            }),
-            switchDetails: ({ detailsOn }) => () => ({
-                detailsOn: !detailsOn,
-            }),
-        }
-    )
+    })
 )(Map)

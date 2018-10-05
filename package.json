@@ -8,6 +8,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",
+    "react-responsive-modal": "^3.4.0",
     "react-scripts": "2.0.4",
     "recompose": "^0.30.0",
     "socket.io": "^2.1.1",
