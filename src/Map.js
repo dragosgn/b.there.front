@@ -160,7 +160,7 @@ const Map = props =>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                9h 20min, 160 €
+                                9h {20 + 20 * props.factor / 10}min, {props.factor * 160 + 160} €
                             </Duration>
                         </Time>
                     </Timeline.Item>

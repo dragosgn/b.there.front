@@ -134,7 +134,7 @@ const Voice = styled.img`
 	margin-bottom: 0.5rem;
 `
 
-const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
+const App = ({ route, goTo, response, openModal, closeModal, modalOpen, factor }) => (
 	<Root>
 		{route !== null && <Header>
 			<Icon className="fas fa-bars" size="1.5rem" color="grey" />
@@ -154,7 +154,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 
 			</FirstScreen>
 		}
-		{route === "map" && <Map isMarkerShown />}
+		{route === "map" && <Map isMarkerShown factor={factor} />}
 
 		<Modal open={modalOpen} onClose={closeModal} center>
 			<p>This is your ticket:</p>
@@ -175,20 +175,13 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 export default compose(
 	withState('response', 'setresponse', false),
 	withState('endpoint', 'setendpoint', "https://fierce-badlands-96084.herokuapp.com/"),
-	lifecycle({
-		componentDidMount() {
-			console.log("props", this.props)
-			const { endpoint } = this.props;
-			const socket = socketIOClient(endpoint);
-			socket.on("alexa_add_transport", () => (console.log('test')));
-		}
-	}),
 	withStateHandlers(
 		({ initialRoute = null }) => ({
 			route: initialRoute,
 			prevRoute: null,
 			nextRoute: null,
-			modalOpen: false
+			modalOpen: false,
+			factor: 0
 		}),
 		{
 			goBack: ({ prevRoute }) => value => ({
@@ -206,7 +199,19 @@ export default compose(
 			}),
 			closeModal: () => () => ({
 				modalOpen: false
+			}),
+			sumFactor: ({ factor }) => () => ({
+				factor: factor + 1
 			})
 		}
-	)
+	),
+	lifecycle({
+		componentDidMount() {
+			console.log("props", this.props)
+			const { endpoint } = this.props;
+			const socket = socketIOClient(endpoint);
+			socket.on("alexa_add_transport", () => (console.log('test')));
+		}
+	})
+
 )(App);
