@@ -200,9 +200,13 @@ export default compose(
 			closeModal: () => () => ({
 				modalOpen: false
 			}),
-			sumFactor: ({ factor }) => () => ({
-				factor: factor + 1
-			})
+			sumFactor: ({ factor }) => () => {
+				console.log("works")
+				console.log(factor)
+				return {
+					factor: factor + 1
+				}
+			}
 		}
 	),
 	lifecycle({
