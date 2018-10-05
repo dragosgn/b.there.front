@@ -9,6 +9,7 @@ import Ionicon from 'react-ionicons'
 import logo from "./logo.png"
 import brand1 from "./btherelogo-04.png"
 import name from "./name.png"
+import voice from "./voice.svg"
 
 
 const Column = styled.div`
@@ -121,6 +122,10 @@ const FirstScreen = styled.div`
 	background-color: #3da3db;
 `
 
+const Voice = styled.img`
+	margin-top: 20rem;
+`
+
 const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 	<Root>
 		{route !== null && <Header>
@@ -131,7 +136,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 		{route === null &&
 			<FirstScreen onClick={() => goTo("map")}>
 				<Logo height={150} src={logo} alt="logo" />
-				{/* <Name height={100} src={brand1} alt="name" onClick={() => goTo("map")} /> */}
+				<Voice src={voice} height={40} alt="voice" />
 			</FirstScreen>
 		}
 		{route === "map" && <Map isMarkerShown />}
