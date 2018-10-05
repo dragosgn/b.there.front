@@ -142,7 +142,7 @@ export default compose(
 			console.log("props", this.props)
 			const { endpoint } = this.props;
 			const socket = socketIOClient(endpoint);
-			socket.on("FromAPI", data => this.setState({ response: data }));
+			socket.on("alexa_add_transport", (data) => (console.log(`alexa added trasnposrt`)));
 		}
 	}),
 	withStateHandlers(
