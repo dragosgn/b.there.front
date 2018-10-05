@@ -129,7 +129,7 @@ const FirstScreen = styled.div`
 `
 
 const Voice = styled.img`
-	margin-top: 3rem;
+	margin-top: 2rem;
 	margin-bottom: 0.5rem;
 `
 
@@ -145,7 +145,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 				<Logo height={150} src={logo} alt="logo" />
 				<Particles style={{
 					marginTop: "5rem",
-					marginBottom: "5rem"
+					marginBottom: "2rem"
 				}} height={200} params={
 					particlesConfig
 				} />
@@ -162,7 +162,7 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 		</Modal>
 		{
 			route !== null && <Footer>
-				<FooterIcon color="grey" className="fas fa-home" size="1.5rem" active={route === "map" && !modalOpen} />
+				<FooterIcon color="grey" className="fas fa-home" size="1.5rem" active={route === "map" && !modalOpen} onClick={goTo(null)} />
 				<FooterIcon color="grey" className="fas fa-wallet" size="1.5rem" onClick={openModal} active={modalOpen} />
 				<FooterIcon color="grey" className="fas fa-user" size="1.5rem" />
 				<FooterIcon color="grey" className="fas fa-sliders-h" size="1.5rem" />
