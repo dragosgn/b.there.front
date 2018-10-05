@@ -129,7 +129,7 @@ const FirstScreen = styled.div`
 `
 
 const Voice = styled.img`
-	margin-top: 10rem;
+	margin-top: 3rem;
 	margin-bottom: 0.5rem;
 `
 
@@ -144,8 +144,8 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 			<FirstScreen onClick={() => goTo("map")}>
 				<Logo height={150} src={logo} alt="logo" />
 				<Particles style={{
-					position: "relative",
-					top: "80px"
+					marginTop: "5rem",
+					marginBottom: "5rem"
 				}} height={230} params={
 					particlesConfig
 				} />
