@@ -83,16 +83,15 @@ const App = ({ route, goTo, response }) => (
 		{route === null && <Column>
 			<span role="img" aria-label="smile" style={{ fontSize: '6rem', paddingTop: "4rem" }}>
 				🙂
-          <p>
-              The temperature in Florence is: {response} °F
-            </p>
-          <p>Loading...</p>
-		</span>
+         		</span>
 			<ButtonBox>
 				<Button onClick={() => goTo("map")}> Start</Button>
 			</ButtonBox>
 		</Column>}
 		{route === "map" && <Map isMarkerShown />}
+		<p>
+			The temperature in Florence is: {response} °F
+		</p>
 	</Root>
 );
 
@@ -108,15 +107,15 @@ export default compose(
 			prevRoute: null,
 			nextRoute: null,
 		}),
-	withState('response', 'setresponse', false),
-	withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
-	lifecycle({
+		withState('response', 'setresponse', false),
+		withState('endpoint', 'setendpoint', "http://127.0.0.1:8080/"),
+		lifecycle({
 			componentDidMount() {
 				const { endpoint } = this.state;
-		    const socket = socketIOClient(endpoint);
-		    socket.on("FromAPI", data => this.setState({ response: data }));
+				const socket = socketIOClient(endpoint);
+				socket.on("FromAPI", data => this.setState({ response: data }));
 			}
-	}),
+		}),
 		{
 			goBack: ({ prevRoute }) => value => ({
 				route: prevRoute
