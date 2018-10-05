@@ -126,6 +126,7 @@ const FirstScreen = styled.div`
 
 const Voice = styled.img`
 	margin-top: 20rem;
+	margin-bottom: 0.5rem;
 `
 
 const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (

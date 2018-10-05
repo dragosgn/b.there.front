@@ -8,8 +8,13 @@ import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import { Box } from "./styled"
 import ZoomedMap from "./ZoomedMap"
 import Modal from "react-responsive-modal";
+import egoMover from "./ego-mover.jpg"
 
-import { Timeline } from 'antd';
+import { Timeline, Icon } from 'antd';
+
+import { Card, Icon as AntIcon, Avatar } from 'antd';
+const { Meta } = Card;
+
 
 
 const KEY = `AIzaSyBp94Nm36SehTJM0W3_QJNFQIIkixVONcw`
@@ -87,24 +92,43 @@ const TripDetails = styled.div`
     padding: 0.5rem;
 `
 
+const Content = styled.div`
+   display: flex;
+   height: 100%;
+   align-content: center;
+   align-items: center;
+   justify-content: center;
+`
+
+const Image = styled.img`
+    margin-left: auto;
+    margin-right: auto;
+`
+
 const Map = props =>
     <div>
         <ModalRoot>
             <Modal open={props.detailsOn} onClose={props.hideDetails} center styles={{
                 modal: {
-                    padding: "0px", width: "100%",
-                    height: "100%"
+                    paddingTop: "0px", width: "100%", paddingBottom: "0px", paddingLeft: "0px", paddingRight: "0px"
                 },
                 overlay: {
                     padding: "0px",
                 }
             }}>
-                <ZoomedMap />
-                <TripDetails>
-                    <div><strong>Adress:</strong> Rosenthaler Platz, Berlin</div>
-                    <div><strong>Duration:</strong> 5h 37min</div>
-                    <div><strong>Price:</strong> 160€</div>
-                </TripDetails>
+                <Content>
+                    <Card
+                        style={{ width: "100%" }}
+                        cover={<img alt="example" src={egoMover} />}
+                        actions={[<AntIcon type="setting" />, <AntIcon type="ellipsis" />]}
+                    >
+                        <Meta
+                            avatar={<Avatar src={egoMover} />}
+                            title="e.Go Mover"
+                            description="The future of mobility"
+                        />
+                    </Card>
+                </Content>
             </Modal>
         </ModalRoot>
         <div>
