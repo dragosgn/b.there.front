@@ -160,7 +160,7 @@ const Map = props =>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                9h 20min
+                                9h 20min, 160 €
                             </Duration>
                         </Time>
                     </Timeline.Item>
@@ -171,7 +171,7 @@ const Map = props =>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                5h 8min
+                                5h 8min, 55€
                             </Duration>
                         </Time>
                     </Timeline.Item>
@@ -182,7 +182,7 @@ const Map = props =>
                         </TitleBox>
                         <Time>
                             <Duration>
-                                1h 17min
+                                1h 17min, 17€
                             </Duration>
                         </Time>
                     </Timeline.Item>
