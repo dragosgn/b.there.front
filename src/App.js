@@ -11,6 +11,10 @@ import brand1 from "./btherelogo-04.png"
 import name from "./name.png"
 import voice from "./voice.svg"
 import wave from "./wave.svg"
+import Particles from 'react-particles-js';
+import particlesConfig from "./particles.json"
+
+
 
 
 
@@ -125,7 +129,7 @@ const FirstScreen = styled.div`
 `
 
 const Voice = styled.img`
-	margin-top: 20rem;
+	margin-top: 14rem;
 	margin-bottom: 0.5rem;
 `
 
@@ -139,8 +143,15 @@ const App = ({ route, goTo, response, openModal, closeModal, modalOpen }) => (
 		{route === null &&
 			<FirstScreen onClick={() => goTo("map")}>
 				<Logo height={150} src={logo} alt="logo" />
+				<Particles style={{
+					position: "relative",
+					top: "100px"
+				}} height={230} params={
+					particlesConfig
+				} />
 				<Voice src={voice} height={40} alt="voice" />
 				<img src={wave} height={40} alt="voice" />
+
 			</FirstScreen>
 		}
 		{route === "map" && <Map isMarkerShown />}
